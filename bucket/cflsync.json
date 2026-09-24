@@ -1,16 +1,29 @@
 {
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Synchronize Confluence Cloud pages with local Markdown page directories",
   "homepage": "https://github.com/sven-prive/cflsync",
   "license": "MPL-2.0",
-  "depends": ["python-embed", "main/pandoc"],
-  "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.0/cflsync-0.2.0.zip",
-  "hash": "da1500f4e92515caac817d04700a0e0223a2f49fe97fc34cb7213b7deba98605",
-  "bin": [["cflsync.cmd", "cflsync"]],
-  "checkver": {
-    "github": "https://github.com/sven-prive/cflsync"
+  "depends": ["main/pandoc"],
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.1/cflsync-0.2.1-windows-x64.zip",
+      "hash": "970b931705603733caf2f9d9df6540d9b7e0ca5a779eca8bb2e26207adc93e95"
+    },
+    "arm64": {
+      "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.1/cflsync-0.2.1-windows-arm64.zip",
+      "hash": "9ff2764ae7903db0c836fd73296e8774ee85f6ce4c49d3a642c42af6d108ea69"
+    }
   },
+  "bin": [["cflsync.cmd", "cflsync"]],
+  "checkver": { "github": "https://github.com/sven-prive/cflsync" },
   "autoupdate": {
-    "url": "https://github.com/sven-prive/cflsync/releases/download/v$version/cflsync-$version.zip"
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/sven-prive/cflsync/releases/download/v$version/cflsync-$version-windows-x64.zip"
+      },
+      "arm64": {
+        "url": "https://github.com/sven-prive/cflsync/releases/download/v$version/cflsync-$version-windows-arm64.zip"
+      }
+    }
   }
 }
