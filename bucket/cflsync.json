@@ -1,29 +1,36 @@
 {
-  "version": "0.2.1",
-  "description": "Synchronize Confluence Cloud pages with local Markdown page directories",
-  "homepage": "https://github.com/sven-prive/cflsync",
-  "license": "MPL-2.0",
-  "depends": ["main/pandoc"],
-  "architecture": {
-    "64bit": {
-      "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.1/cflsync-0.2.1-windows-x64.zip",
-      "hash": "970b931705603733caf2f9d9df6540d9b7e0ca5a779eca8bb2e26207adc93e95"
-    },
-    "arm64": {
-      "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.1/cflsync-0.2.1-windows-arm64.zip",
-      "hash": "9ff2764ae7903db0c836fd73296e8774ee85f6ce4c49d3a642c42af6d108ea69"
-    }
-  },
-  "bin": [["cflsync.cmd", "cflsync"]],
-  "checkver": { "github": "https://github.com/sven-prive/cflsync" },
-  "autoupdate": {
+    "version": "0.2.2",
+    "description": "Synchronize Confluence Cloud pages with local Markdown page directories",
+    "homepage": "https://github.com/sven-prive/cflsync",
+    "license": "MPL-2.0",
+    "depends": "main/pandoc",
     "architecture": {
-      "64bit": {
-        "url": "https://github.com/sven-prive/cflsync/releases/download/v$version/cflsync-$version-windows-x64.zip"
-      },
-      "arm64": {
-        "url": "https://github.com/sven-prive/cflsync/releases/download/v$version/cflsync-$version-windows-arm64.zip"
-      }
+        "64bit": {
+            "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.2/cflsync-0.2.2-windows-x64.zip",
+            "hash": "3c9f0eb156c45afdbacfb526b1f3a2c8f0a94b28f888f760df0a8ec4e05dd955"
+        },
+        "arm64": {
+            "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.2/cflsync-0.2.2-windows-arm64.zip",
+            "hash": "95591e9691e54b48321eba135be6c2c68a91d51472b834ac9d6a3576bbfb3e32"
+        }
+    },
+    "bin": [
+        [
+            "cflsync.cmd",
+            "cflsync"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/sven-prive/cflsync"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/sven-prive/cflsync/releases/download/v$version/cflsync-$version-windows-x64.zip"
+            },
+            "arm64": {
+                "url": "https://github.com/sven-prive/cflsync/releases/download/v$version/cflsync-$version-windows-arm64.zip"
+            }
+        }
     }
-  }
 }
