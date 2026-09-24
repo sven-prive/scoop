@@ -1,0 +1,70 @@
+name: Update cflsync manifest
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-cflsync-manifest
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Scoop
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy RemoteSigned -Scope Process -Force
+          Invoke-RestMethod https://get.scoop.sh | Invoke-Expression
+
+      - name: Update manifest from the latest GitHub release
+        shell: pwsh
+        run: |
+          # checkver reads bucket/cflsync.json's checkver.github field and
+          # queries GitHub Releases for sven-prive/cflsync. -Update substitutes
+          # the discovered version into autoupdate URLs and refreshes hashes.
+          $checkver = Join-Path $env:USERPROFILE "scoop\apps\scoop\current\bin\checkver.ps1"
+          & $checkver cflsync "$env:GITHUB_WORKSPACE\bucket" -Update
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+      - name: Validate and install the manifest
+        shell: pwsh
+        run: |
+          $manifestPath = "$env:GITHUB_WORKSPACE\bucket\cflsync.json"
+          $manifest = Get-Content -Raw $manifestPath | ConvertFrom-Json
+          if (-not $manifest.version -or -not $manifest.architecture) {
+            throw "Manifest must define version and architecture."
+          }
+          foreach ($architecture in "64bit", "arm64") {
+            $asset = $manifest.architecture.$architecture
+            if (-not $asset.url -or -not $asset.hash) {
+              throw "Manifest must define URL and SHA-256 for $architecture."
+            }
+          }
+          scoop install $manifestPath
+          cflsync --help
+
+      - name: Commit manifest update
+        shell: pwsh
+        run: |
+          $changed = git status --porcelain -- bucket/cflsync.json
+          if (-not $changed) {
+            Write-Host "cflsync manifest is already current."
+            exit 0
+          }
+          $version = (Get-Content -Raw bucket/cflsync.json | ConvertFrom-Json).version
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bucket/cflsync.json
+          git commit -m "chore(release): update cflsync to v$version"
+          git push
