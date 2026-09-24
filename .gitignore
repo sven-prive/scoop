@@ -1,0 +1,31 @@
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor state
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local build and validation artifacts
+dist/
+build/
+*.zip
+*.sha256
+
+# Coding-agent state
+.agents/
+.aider*
+.claude/
+.cline/
+.codex/
+.continue/
+.cursor/
+.gemini/
+.opencode/
+.pi/
+.roo/
+.windsurf/
