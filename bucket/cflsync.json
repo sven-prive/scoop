@@ -3,7 +3,7 @@
   "description": "Synchronize Confluence Cloud pages with local Markdown page directories",
   "homepage": "https://github.com/sven-prive/cflsync",
   "license": "MPL-2.0",
-  "depends": ["main/python", "main/pandoc"],
+  "depends": ["python-embed", "main/pandoc"],
   "url": "https://github.com/sven-prive/cflsync/releases/download/v0.2.0/cflsync-0.2.0.zip",
   "hash": "da1500f4e92515caac817d04700a0e0223a2f49fe97fc34cb7213b7deba98605",
   "bin": [["cflsync.cmd", "cflsync"]],
